@@ -1,0 +1,130 @@
+'use strict';
+let parant = document.getElementById('product');
+let leftPhoto = document.createElement('img');
+console.log(parant);
+parant.appendChild(leftPhoto);
+//from https://www.educative.io/
+leftPhoto.setAttribute('id','leftPhoto');
+let rightPhoto = document.createElement('img');
+
+parant.appendChild(rightPhoto);
+//from https://www.educative.io/
+rightPhoto.setAttribute('id','rightPhoto');
+let middlePhoto = document.createElement('img');
+
+parant.appendChild(middlePhoto);
+//from https://www.educative.io/
+middlePhoto.setAttribute('id','middlePhoto');
+
+let maxAttembt = 25;
+let userConter = 0;
+
+let leftPhotoIndex;
+let rightPhotoIndex;
+let middlePhotoIndex;
+
+function Product(name, src) {
+
+    this.name = name;
+    this.src = src;
+    this.votes = 0;
+    this.seen = 0;
+    photoArr.push(this);
+}
+
+let photoArr = [];
+
+new Product('bag', 'img/bag.jpg');
+new Product('banana', 'img/banana.jpg');
+new Product('bathroom', 'img/bathroom.jpg');
+new Product('boots', 'img/boots.jpg');
+new Product('breakfast', 'img/breakfast.jpg');
+new Product('bubblegum', 'img/bubblegum.jpg');
+new Product('chair', 'img/chair.jpg');
+new Product('cthulhu', 'img/cthulhu.jpg');
+new Product('dog-duck', 'img/dog-duck.jpg');
+new Product('dragon', 'img/dragon.jpg');
+new Product('pen', 'img/pen.jpg');
+new Product('pet-sweep', 'img/pet-sweep.jpg');
+new Product('scissors', 'img/scissors.jpg');
+new Product('shark', 'img/shark.jpg');
+new Product('sweep', 'img/sweep.png');
+new Product('tauntaun', 'img/tauntaun.jpg');
+new Product('unicorn', 'img/unicorn.jpg');
+new Product('water-can', 'img/water-can.jpg');
+new Product('wine-glass', 'img/wine-glass.jpg');
+
+//from demo
+function random() {
+
+    return Math.floor(Math.random() * photoArr.length);
+}
+
+function rander() {
+
+    leftPhotoIndex = random();
+    rightPhotoIndex = random();
+    middlePhotoIndex = random();
+
+    while (leftPhotoIndex === rightPhotoIndex || leftPhotoIndex === middlePhotoIndex || rightPhotoIndex === middlePhotoIndex) {
+        leftPhotoIndex = random();
+        rightPhotoIndex = random();
+        middlePhotoIndex = random();
+
+
+    }
+
+    leftPhoto.src = photoArr[leftPhotoIndex].src;
+    rightPhoto.src = photoArr[rightPhotoIndex].src;
+    middlePhoto.src = photoArr[middlePhotoIndex].src;
+    photoArr[leftPhotoIndex].seen++;
+
+}
+
+rander();
+
+leftPhoto.addEventListener('click', clickPhoto);
+rightPhoto.addEventListener('click', clickPhoto);
+middlePhoto.addEventListener('click', clickPhoto);
+
+function clickPhoto(event) {
+    rander();
+    userConter++;
+    console.log(event.target.id);
+    if (userConter < maxAttembt) {
+        if (event.target.id === 'leftPhoto') {
+            photoArr[leftPhotoIndex].votes++;
+
+
+        } else if (event.target.id === 'rightPhoto') {
+            photoArr[rightPhotoIndex].votes++;
+        } else if (event.target.id === 'middlePhoto') {
+            photoArr[middlePhotoIndex].votes++;
+        }
+
+
+
+
+    } else {
+        let list = document.getElementById('list');
+        for (let i = 0; i < photoArr.length; i++) {
+            let listElemant = document.createElement('li');
+            list.appendChild(listElemant);
+            listElemant.textContent = `${photoArr[i].name} had ${photoArr[i].votes} votes, and was seen ${photoArr[i].seen} times.`;
+
+        }
+        leftPhoto.removeEventListener('click', clickPhoto);
+        rightPhoto.removeEventListener('click', clickPhoto);
+        middlePhoto.removeEventListener('click', clickPhoto);
+
+    }
+}
+//from w3schools
+function myFunction() {
+    var x = document.getElementById("list");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
