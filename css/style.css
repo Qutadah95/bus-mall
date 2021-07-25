@@ -1,0 +1,39 @@
+img{
+
+    width: 30%;
+
+}
+
+h1{
+
+    color: crimson;
+    font-size: 150px;
+    text-align: center;
+}
+
+button{
+
+    width: 25%;
+    color: crimson;
+    background-color: green;
+    height: 7%;
+    /*from w3schools */
+    border: none;
+    padding: 15px 32px;
+    display: inline-block;
+
+
+    
+}
+ul{
+
+    text-align: center;
+    font-size: larger;
+    color: red;
+}
+p{
+
+    color: green;
+    font-size: 75px;
+    text-align: center;
+}
