@@ -4,17 +4,17 @@ let leftPhoto = document.createElement('img');
 console.log(parant);
 parant.appendChild(leftPhoto);
 //from https://www.educative.io/
-leftPhoto.setAttribute('id','leftPhoto');
+leftPhoto.setAttribute('id', 'leftPhoto');
 let rightPhoto = document.createElement('img');
 
 parant.appendChild(rightPhoto);
 //from https://www.educative.io/
-rightPhoto.setAttribute('id','rightPhoto');
+rightPhoto.setAttribute('id', 'rightPhoto');
 let middlePhoto = document.createElement('img');
 
 parant.appendChild(middlePhoto);
 //from https://www.educative.io/
-middlePhoto.setAttribute('id','middlePhoto');
+middlePhoto.setAttribute('id', 'middlePhoto');
 
 let maxAttembt = 25;
 let userConter = 0;
@@ -30,9 +30,14 @@ function Product(name, src) {
     this.votes = 0;
     this.seen = 0;
     photoArr.push(this);
+    namesArr.push(this.name);
 }
 
 let photoArr = [];
+let numbers = [];
+let votesArr = [];
+let namesArr = [];
+let shownArr = [];
 
 new Product('bag', 'img/bag.jpg');
 new Product('banana', 'img/banana.jpg');
@@ -62,11 +67,13 @@ function random() {
 
 function rander() {
 
-    leftPhotoIndex = random();
-    rightPhotoIndex = random();
-    middlePhotoIndex = random();
+    leftPhotoIndex = Boolean(random());
+    rightPhotoIndex = Boolean(random());
+    middlePhotoIndex = Boolean(random());
 
-    while (leftPhotoIndex === rightPhotoIndex || leftPhotoIndex === middlePhotoIndex || rightPhotoIndex === middlePhotoIndex) {
+
+
+    while (leftPhotoIndex === rightPhotoIndex || leftPhotoIndex === middlePhotoIndex || rightPhotoIndex === middlePhotoIndex || numbers.includes(leftPhotoIndex) || numbers.includes(rightPhotoIndex) || numbers.includes(middlePhotoIndex)) {
         leftPhotoIndex = random();
         rightPhotoIndex = random();
         middlePhotoIndex = random();
@@ -74,11 +81,15 @@ function rander() {
 
     }
 
+
+
     leftPhoto.src = photoArr[leftPhotoIndex].src;
     rightPhoto.src = photoArr[rightPhotoIndex].src;
     middlePhoto.src = photoArr[middlePhotoIndex].src;
     photoArr[leftPhotoIndex].seen++;
-
+    photoArr[rightPhotoIndex].seen++;
+    photoArr[middlePhotoIndex].seen++;
+    numbers = [leftPhotoIndex, rightPhotoIndex, middlePhotoIndex];
 }
 
 rander();
@@ -89,7 +100,7 @@ middlePhoto.addEventListener('click', clickPhoto);
 
 function clickPhoto(event) {
     rander();
-    
+
     console.log(event.target.id);
     if (userConter < maxAttembt) {
         if (event.target.id === 'leftPhoto') {
@@ -113,19 +124,101 @@ function clickPhoto(event) {
             listElemant.textContent = `${photoArr[i].name} had ${photoArr[i].votes} votes, and was seen ${photoArr[i].seen} times.`;
 
         }
+        for (let i = 0; i < photoArr.length; i++) {
+            console.log(photoArr[i].votes);
+            votesArr.push(photoArr[i].votes);
+            shownArr.push(photoArr[i].seen);
+
+        }
         leftPhoto.removeEventListener('click', clickPhoto);
         rightPhoto.removeEventListener('click', clickPhoto);
         middlePhoto.removeEventListener('click', clickPhoto);
-        
+        showChart();
     }
     userConter++;
 }
+
 //from w3schools
 function myFunction() {
     let x = document.getElementById('list');
     if (x.style.display === 'none') {
-      x.style.display = 'block';
+        x.style.display = 'block';
     } else {
-      x.style.display = 'none';
+        x.style.display = 'none';
     }
-  }
+}
+//from demo
+
+function showChart() {
+
+    const data = {
+        labels: namesArr,
+        datasets: [{
+            label: 'Votes',
+            data: votesArr,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(201, 203, 207, 0.2)'
+            ],
+            borderColor: [
+                'rgb(255, 99, 132)',
+                'rgb(255, 159, 64)',
+                'rgb(255, 205, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(54, 162, 235)',
+                'rgb(153, 102, 255)',
+                'rgb(201, 203, 207)'
+            ],
+            borderWidth: 1
+        },
+        {
+            label: 'Shown',
+            data: shownArr,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(201, 203, 207, 0.2)'
+            ],
+            borderColor: [
+                'rgb(255, 99, 132)',
+                'rgb(255, 159, 64)',
+                'rgb(255, 205, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(54, 162, 235)',
+                'rgb(153, 102, 255)',
+                'rgb(201, 203, 207)'
+            ],
+            borderWidth: 1
+        }
+
+        ]
+    };
+
+    const config = {
+        type: 'bar',
+        data: data,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        },
+    };
+
+
+    var myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+    );
+
+}
