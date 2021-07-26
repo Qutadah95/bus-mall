@@ -89,7 +89,7 @@ middlePhoto.addEventListener('click', clickPhoto);
 
 function clickPhoto(event) {
     rander();
-    userConter++;
+    
     console.log(event.target.id);
     if (userConter < maxAttembt) {
         if (event.target.id === 'leftPhoto') {
@@ -116,15 +116,16 @@ function clickPhoto(event) {
         leftPhoto.removeEventListener('click', clickPhoto);
         rightPhoto.removeEventListener('click', clickPhoto);
         middlePhoto.removeEventListener('click', clickPhoto);
-
+        
     }
+    userConter++;
 }
 //from w3schools
 function myFunction() {
-    var x = document.getElementById("list");
-    if (x.style.display === "none") {
-      x.style.display = "block";
+    let x = document.getElementById('list');
+    if (x.style.display === 'none') {
+      x.style.display = 'block';
     } else {
-      x.style.display = "none";
+      x.style.display = 'none';
     }
   }
