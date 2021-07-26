@@ -37,7 +37,7 @@ let photoArr = [];
 let numbers = [];
 let votesArr = [];
 let namesArr = [];
-let shownArr=[];
+let shownArr = [];
 
 new Product('bag', 'img/bag.jpg');
 new Product('banana', 'img/banana.jpg');
@@ -70,9 +70,9 @@ function rander() {
     leftPhotoIndex = Boolean(random());
     rightPhotoIndex = Boolean(random());
     middlePhotoIndex = Boolean(random());
-    
-  
- 
+
+
+
     while (leftPhotoIndex === rightPhotoIndex || leftPhotoIndex === middlePhotoIndex || rightPhotoIndex === middlePhotoIndex || numbers.includes(leftPhotoIndex) || numbers.includes(rightPhotoIndex) || numbers.includes(middlePhotoIndex)) {
         leftPhotoIndex = random();
         rightPhotoIndex = random();
@@ -128,8 +128,8 @@ function clickPhoto(event) {
             console.log(photoArr[i].votes);
             votesArr.push(photoArr[i].votes);
             shownArr.push(photoArr[i].seen);
-            
-          }
+
+        }
         leftPhoto.removeEventListener('click', clickPhoto);
         rightPhoto.removeEventListener('click', clickPhoto);
         middlePhoto.removeEventListener('click', clickPhoto);
@@ -152,73 +152,73 @@ function myFunction() {
 function showChart() {
 
     const data = {
-      labels: namesArr,
-      datasets: [{
-        label: 'Votes',
-        data: votesArr,
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 205, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(201, 203, 207, 0.2)'
-        ],
-        borderColor: [
-          'rgb(255, 99, 132)',
-          'rgb(255, 159, 64)',
-          'rgb(255, 205, 86)',
-          'rgb(75, 192, 192)',
-          'rgb(54, 162, 235)',
-          'rgb(153, 102, 255)',
-          'rgb(201, 203, 207)'
-        ],
-        borderWidth: 1
-      },
-      {
-        label: 'Shown',
-        data: shownArr,
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 205, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(201, 203, 207, 0.2)'
-        ],
-        borderColor: [
-          'rgb(255, 99, 132)',
-          'rgb(255, 159, 64)',
-          'rgb(255, 205, 86)',
-          'rgb(75, 192, 192)',
-          'rgb(54, 162, 235)',
-          'rgb(153, 102, 255)',
-          'rgb(201, 203, 207)'
-        ],
-        borderWidth: 1
-      }
-    
-    ]
-    };
-  
-    const config = {
-      type: 'bar',
-      data: data,
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
+        labels: namesArr,
+        datasets: [{
+            label: 'Votes',
+            data: votesArr,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(201, 203, 207, 0.2)'
+            ],
+            borderColor: [
+                'rgb(255, 99, 132)',
+                'rgb(255, 159, 64)',
+                'rgb(255, 205, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(54, 162, 235)',
+                'rgb(153, 102, 255)',
+                'rgb(201, 203, 207)'
+            ],
+            borderWidth: 1
+        },
+        {
+            label: 'Shown',
+            data: shownArr,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(201, 203, 207, 0.2)'
+            ],
+            borderColor: [
+                'rgb(255, 99, 132)',
+                'rgb(255, 159, 64)',
+                'rgb(255, 205, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(54, 162, 235)',
+                'rgb(153, 102, 255)',
+                'rgb(201, 203, 207)'
+            ],
+            borderWidth: 1
         }
-      },
+
+        ]
     };
-  
-  
+
+    const config = {
+        type: 'bar',
+        data: data,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        },
+    };
+
+
     var myChart = new Chart(
-      document.getElementById('myChart'),
-      config
+        document.getElementById('myChart'),
+        config
     );
-  
-  }
+
+}
