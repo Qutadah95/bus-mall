@@ -1,7 +1,8 @@
 'use strict';
+
 let parant = document.getElementById('product');
 let leftPhoto = document.createElement('img');
-console.log(parant);
+// console.log(parant);
 parant.appendChild(leftPhoto);
 //from https://www.educative.io/
 leftPhoto.setAttribute('id', 'leftPhoto');
@@ -15,13 +16,19 @@ let middlePhoto = document.createElement('img');
 parant.appendChild(middlePhoto);
 //from https://www.educative.io/
 middlePhoto.setAttribute('id', 'middlePhoto');
-
 let maxAttembt = 25;
 let userConter = 0;
 
 let leftPhotoIndex;
 let rightPhotoIndex;
 let middlePhotoIndex;
+let photoArr = [];
+let numbers = [];
+let votesArr = [];
+let namesArr = [];
+let shownArr = [];
+
+
 
 function Product(name, src) {
 
@@ -31,13 +38,12 @@ function Product(name, src) {
     this.seen = 0;
     photoArr.push(this);
     namesArr.push(this.name);
+
 }
 
-let photoArr = [];
-let numbers = [];
-let votesArr = [];
-let namesArr = [];
-let shownArr = [];
+
+
+
 
 new Product('bag', 'img/bag.jpg');
 new Product('banana', 'img/banana.jpg');
@@ -67,9 +73,9 @@ function random() {
 
 function rander() {
 
-    leftPhotoIndex = Boolean(random());
-    rightPhotoIndex = Boolean(random());
-    middlePhotoIndex = Boolean(random());
+    leftPhotoIndex = random();
+    rightPhotoIndex = random();
+    middlePhotoIndex = random();
 
 
 
@@ -90,6 +96,7 @@ function rander() {
     photoArr[rightPhotoIndex].seen++;
     photoArr[middlePhotoIndex].seen++;
     numbers = [leftPhotoIndex, rightPhotoIndex, middlePhotoIndex];
+
 }
 
 rander();
@@ -100,8 +107,9 @@ middlePhoto.addEventListener('click', clickPhoto);
 
 function clickPhoto(event) {
     rander();
+   
 
-    console.log(event.target.id);
+    // console.log(event.target.id);
     if (userConter < maxAttembt) {
         if (event.target.id === 'leftPhoto') {
             photoArr[leftPhotoIndex].votes++;
@@ -117,6 +125,7 @@ function clickPhoto(event) {
 
 
     } else {
+
         let list = document.getElementById('list');
         for (let i = 0; i < photoArr.length; i++) {
             let listElemant = document.createElement('li');
@@ -124,8 +133,9 @@ function clickPhoto(event) {
             listElemant.textContent = `${photoArr[i].name} had ${photoArr[i].votes} votes, and was seen ${photoArr[i].seen} times.`;
 
         }
+
         for (let i = 0; i < photoArr.length; i++) {
-            console.log(photoArr[i].votes);
+            // console.log(photoArr[i].votes);
             votesArr.push(photoArr[i].votes);
             shownArr.push(photoArr[i].seen);
 
@@ -133,9 +143,16 @@ function clickPhoto(event) {
         leftPhoto.removeEventListener('click', clickPhoto);
         rightPhoto.removeEventListener('click', clickPhoto);
         middlePhoto.removeEventListener('click', clickPhoto);
+        updatinf();
         showChart();
+
     }
     userConter++;
+
+
+    
+
+
 }
 
 //from w3schools
@@ -150,6 +167,8 @@ function myFunction() {
 //from demo
 
 function showChart() {
+    
+
 
     const data = {
         labels: namesArr,
@@ -222,3 +241,50 @@ function showChart() {
     );
 
 }
+
+function updatinf() {
+    
+    let newVotes = JSON.stringify(votesArr);
+    let newSeen = JSON.stringify(shownArr);
+    localStorage.setItem('vote', newVotes);
+    localStorage.setItem('seen', newSeen);
+    
+
+
+}
+
+function setUpdat() {
+    
+    let dataVote = localStorage.getItem('vote');
+    let dataSeen = localStorage.getItem('seen');
+    console.log(dataVote);
+    console.log(dataSeen);
+    let parstVote = JSON.parse(dataVote);
+    let parstSeen = JSON.parse(dataSeen);
+    // console.log(parstVote);
+    // console.log(parstSeen);
+    
+     if (parstVote !== null && parstSeen !== null) {
+        dataVote=parstVote;
+        dataSeen=parstSeen;
+        // for (let i = 0; i < votesArr.length; i++) {
+        //     dataVote[i]+= parstVote[i];
+        //     dataSeen[i]+=parstSeen[i];
+            
+        // }
+        // console.log(dataVote);
+        rander();
+       
+}
+
+   
+
+
+}
+
+
+
+setUpdat();
+
+
+
