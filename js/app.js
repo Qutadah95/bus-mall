@@ -71,6 +71,7 @@ function random() {
     return Math.floor(Math.random() * photoArr.length);
 }
 
+
 function rander() {
 
     leftPhotoIndex = random();
@@ -107,7 +108,7 @@ middlePhoto.addEventListener('click', clickPhoto);
 
 function clickPhoto(event) {
     rander();
-   
+
 
     // console.log(event.target.id);
     if (userConter < maxAttembt) {
@@ -145,12 +146,11 @@ function clickPhoto(event) {
         middlePhoto.removeEventListener('click', clickPhoto);
         updatinf();
         showChart();
-
     }
     userConter++;
 
 
-    
+
 
 
 }
@@ -167,7 +167,7 @@ function myFunction() {
 //from demo
 
 function showChart() {
-    
+
 
 
     const data = {
@@ -243,48 +243,57 @@ function showChart() {
 }
 
 function updatinf() {
-    
-    let newVotes = JSON.stringify(votesArr);
-    let newSeen = JSON.stringify(shownArr);
-    localStorage.setItem('vote', newVotes);
-    localStorage.setItem('seen', newSeen);
-    
 
+    // let newVotes = JSON.stringify(votesArr);
+    // let newSeen = JSON.stringify(shownArr);
+    // localStorage.setItem('vote', newVotes);
+    // localStorage.setItem('seen', newSeen);
 
+    let newProdact = JSON.stringify(photoArr);
+    localStorage.setItem('Product', newProdact);
+
+    // console.log(newProdact);
 }
 
 function setUpdat() {
+
+    // let dataVote = localStorage.getItem('vote');
+    // let dataSeen = localStorage.getItem('seen');
+
+    // let parstVote = JSON.parse(dataVote);
+    // let parstSeen = JSON.parse(dataSeen);
+    // // console.log(parstVote);
+    // // console.log(parstSeen);
+    // // console.log(dataVote);
+    // // console.log(dataSeen);
+
+    // if (parstVote !== null && parstSeen !== null) {
+    //     votesArr = parstVote;
+    //     shownArr = parstSeen;
+    //     // for (let i = 0; i < dataVote.length; i++) {
+    //     //     dataVote[i] += parstVote[i];
+    //     //     dataSeen[i] += parstSeen[i];
+
+    //     // }
+
+    let data = localStorage.getItem('Product');
+    let parstData = JSON.parse(data);
+    // console.log(parstData);
     
-    let dataVote = localStorage.getItem('vote');
-    let dataSeen = localStorage.getItem('seen');
-    console.log(dataVote);
-    console.log(dataSeen);
-    let parstVote = JSON.parse(dataVote);
-    let parstSeen = JSON.parse(dataSeen);
-    // console.log(parstVote);
-    // console.log(parstSeen);
-    
-     if (parstVote !== null && parstSeen !== null) {
-        dataVote=parstVote;
-        dataSeen=parstSeen;
-        // for (let i = 0; i < votesArr.length; i++) {
-        //     dataVote[i]+= parstVote[i];
-        //     dataSeen[i]+=parstSeen[i];
-            
-        // }
-        // console.log(dataVote);
-        rander();
-       
-}
+    if (parstData !==null) {
+        photoArr = parstData;
+    }
 
-   
+
+    // }
+
+    rander();
 
 
 }
-
-
-
 setUpdat();
+
+
 
 
 
